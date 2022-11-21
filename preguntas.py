@@ -74,10 +74,9 @@ def pregunta_03():
     df = pd.read_csv("gm_2008_region.csv")
 
     # Asigne a la variable los valores de la columna `fertility`
-    X_fertility = df["fertility"].to_numpy()
-
+    X_fertility = df["fertility"].to_numpy().reshape(-1,1)
     # Asigne a la variable los valores de la columna `life`
-    y_life = df["life"].to_numpy()
+    y_life = df["life"].to_numpy().reshape(-1,1)
 
     # Importe LinearRegression
     from sklearn import linear_model
@@ -90,7 +89,7 @@ def pregunta_03():
     prediction_space = np.linspace(
         np.min(X_fertility),
         np.max(X_fertility),
-    ).reshape(50, 1)
+    ).reshape(-1, 1)
 
     # Entrene el modelo usando X_fertility y y_life
     reg.fit(X_fertility, y_life)
@@ -99,7 +98,7 @@ def pregunta_03():
     y_pred = reg.predict(prediction_space)
 
     # Imprima el R^2 del modelo con 4 decimales
-    print(reg.score(y_life, y_pred).round(4))
+    print(reg.score(X_fertility, y_life).round(4))
 
 
 def pregunta_04():
@@ -120,10 +119,10 @@ def pregunta_04():
     df = pd.read_csv("gm_2008_region.csv")
 
     # Asigne a la variable los valores de la columna `fertility`
-    X_fertility = df["fertility"].to_numpy()
+    X_fertility = df["fertility"].to_numpy().reshape(-1,1)
 
     # Asigne a la variable los valores de la columna `life`
-    y_life = df["life"].to_numpy()
+    y_life = df["life"].to_numpy().reshape(-1,1)
 
     # Divida los datos de entrenamiento y prueba. La semilla del generador de números
     # aleatorios es 53. El tamaño de la muestra de entrenamiento es del 80%
